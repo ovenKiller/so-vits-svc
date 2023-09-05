@@ -163,7 +163,7 @@ def train_and_evaluate(rank, epoch, hps, nets, optims, schedulers, scaler, loade
             hps.data.mel_fmin,
             hps.data.mel_fmax)
         
-        with autocast(enabled=hps.train.fp16_run, dtype=half_type):
+        with torch.cuda.amp.autocast(enabled=hps.train.fp16_run, dtype=half_type):
             y_hat, ids_slice, z_mask, \
             (z, z_p, m_p, logs_p, m_q, logs_q), pred_lf0, norm_lf0, lf0 = net_g(c, f0, uv, spec, g=g, c_lengths=lengths,
                                                                                 spec_lengths=lengths,vol = volume)
